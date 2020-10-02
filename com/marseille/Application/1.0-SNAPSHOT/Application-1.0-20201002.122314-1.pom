@@ -93,7 +93,7 @@
           <branch>refs/heads/mvn-repo</branch>          <!-- remote branch name -->
           <repositoryOwner>haroldlenoble</repositoryOwner>
           <repositoryName>mvn-repo</repositoryName>
-          <server>github</server>
+          <server>${github.global.server}</server>
         </configuration>
         <executions>
           <execution>
