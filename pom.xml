@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.marseille</groupId>
+  <artifactId>Application</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>Application</name>
+  <description>Description de mon projet</description>
+  <inceptionYear>2020</inceptionYear>
+  <organization>
+    <name>Nom de l'entreprise</name>
+    <url>Url de l'entreprise</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>Nom de la licence</name>
+      <url>L'url de la licence</url>
+      <comments>Commentaire concernant la licence</comments>
+      <distribution>Politique de redistribution</distribution>
+    </license>
+  </licenses>
+  <url>https://www.haroldibouanga.com</url>
+  <developers>
+    <developer>
+      <name>Harold IBOUANGA</name>
+      <email>harold.ibouanga@gmail.com</email>
+      <organization>Mon entreprise</organization>
+      <organizationUrl>https://www.haroldibouanga.com/</organizationUrl>
+      <roles>
+        <role>Tech lead</role>
+        <role>développeur</role>
+      </roles>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Noble IBOUANGA</name>
+      <email>harold.ibouanga@gmail.com</email>
+      <organization>Mon entreprise</organization>
+      <organizationUrl>https://www.haroldibouanga.com/</organizationUrl>
+      <roles>
+        <role>Tech lead</role>
+        <role>développeur</role>
+      </roles>
+    </contributor>
+  </contributors>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <github.global.server>github</github.global.server>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <distributionManagement>
+    <repository>
+      <id>internal.repo</id>
+      <name>Temporary Staging Repository</name>
+      <url>file://${project.build.directory}/mvn-repo</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
+        <configuration>
+          <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.github</groupId>
+        <artifactId>site-maven-plugin</artifactId>
+        <version>0.12</version>
+        <configuration>
+          <message>Creating site for ${project.version}</message>
+          <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>          <!-- matches distribution management repository url above -->
+          <branch>refs/heads/mvn-repo</branch>          <!-- remote branch name -->
+          <repositoryOwner>haroldlenoble</repositoryOwner>
+          <repositoryName>mvn-repo</repositoryName>
+          <server>${github.global.server}</server>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>deploy</phase>
+            <goals>
+              <goal>site</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>
